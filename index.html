@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>для ритко 💖</title>
+  <style>
+    :root {
+      --bg-light: url('https://i.imgur.com/Unx5F2Z.jpg');
+      --bg-dark: #1a1a1a;
+      --text-light: #d63384;
+      --text-dark: #ffccdd;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-image: var(--bg-light);
+      background-size: cover;
+      background-position: center;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.dark {
+      background-image: none;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    h1 {
+      color: #ff69b4;
+      font-size: 2.8em;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 4px white;
+    }
+
+    body.dark h1,
+    body.dark p,
+    body.dark .love-note,
+    body.dark #timer {
+      text-shadow: none;
+      color: var(--text-dark);
+    }
+
+    p {
+      font-size: 1.3em;
+      color: #cc3366;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 3px white;
+    }
+
+    .love-note {
+      font-size: 1.4em;
+      color: #d63384;
+      margin-top: 25px;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px white;
+    }
+
+    #timer {
+      margin-top: 10px;
+      font-size: 1.1em;
+      color: #aa3366;
+    }
+
+    button {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 15px 35px;
+      font-size: 1.3em;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      background-color: #ff85c1;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.6);
+      border: none;
+      padding: 8px 14px;
+      font-size: 0.9em;
+      border-radius: 20px;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    .kiss {
+      position: absolute;
+      font-size: 2em;
+      animation: floatUp 2s ease-out forwards;
+    }
+
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-150px); }
+    }
+
+    .heart {
+      position: fixed;
+      top: -50px;
+      font-size: 20px;
+      color: #ff4d88;
+      animation: fall 5s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Тема</button>
+
+  <h1>ты катенак!! 💕</h1>
+  <p>нажми на кнопку, чтобы получить поцелуй 😘</p>
+  <button onclick="sendKiss()">получить поцелуй</button>
+
+  <div class="love-note">я тебя очень сильно люблю, котя!! 💗</div>
+  <div id="timer"></div>
+
+  <audio id="kissSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_0205e879c6.mp3" preload="auto"></audio>
+
+  <script>
+    function sendKiss() {
+      const kiss = document.createElement("div");
+      kiss.className = "kiss";
+      kiss.innerText = "💋";
+      kiss.style.left = Math.random() * 90 + "vw";
+      kiss.style.top = "70vh";
+      document.body.appendChild(kiss);
+
+      setTimeout(() => {
+        kiss.remove();
+      }, 2000);
+
+      const sound = document.getElementById("kissSound");
+      sound.currentTime = 0;
+      sound.play();
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerText = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+      heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    setInterval(createHeart, 300);
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
+
+    // Таймер отношений
+    function updateTimer() {
+      const start = new Date('2025-05-17T23:51:00');
+      const now = new Date();
+      const diff = now - start;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('timer').innerText =
+        `вместе уже: ${days} дней, ${hours} ч, ${minutes} мин, ${seconds} сек 💞`;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+  </script>
+</body>
+</html>
